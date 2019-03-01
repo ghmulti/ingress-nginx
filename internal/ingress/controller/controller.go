@@ -1074,22 +1074,22 @@ func (n *NGINXController) createServers(data []*ingress.Ingress,
 				continue
 			}
 
-			err = cert.Certificate.VerifyHostname(host)
-			if err != nil {
-				glog.Warningf("Unexpected error validating SSL certificate %q for server %q: %v", secrKey, host, err)
-				glog.Warning("Validating certificate against DNS names. This will be deprecated in a future version.")
-				// check the Common Name field
-				// https://github.com/golang/go/issues/22922
-				err := verifyHostname(host, cert.Certificate)
-				if err != nil {
-					glog.Warningf("SSL certificate %q does not contain a Common Name or Subject Alternative Name for server %q: %v",
-						secrKey, host, err)
-					glog.Warningf("Using default certificate")
-					servers[host].SSLCert.PemFileName = defaultPemFileName
-					servers[host].SSLCert.PemSHA = defaultPemSHA
-					continue
-				}
-			}
+			//err = cert.Certificate.VerifyHostname(host)
+			//if err != nil {
+			//	glog.Warningf("Unexpected error validating SSL certificate %q for server %q: %v", secrKey, host, err)
+			//	glog.Warning("Validating certificate against DNS names. This will be deprecated in a future version.")
+			//	// check the Common Name field
+			//	// https://github.com/golang/go/issues/22922
+			//	err := verifyHostname(host, cert.Certificate)
+			//	if err != nil {
+			//		glog.Warningf("SSL certificate %q does not contain a Common Name or Subject Alternative Name for server %q: %v",
+			//			secrKey, host, err)
+			//		glog.Warningf("Using default certificate")
+			//		servers[host].SSLCert.PemFileName = defaultPemFileName
+			//		servers[host].SSLCert.PemSHA = defaultPemSHA
+			//		continue
+			//	}
+			//}
 
 			if n.cfg.DynamicCertificatesEnabled {
 				// useless placeholders: just to shut up NGINX configuration loader errors:
